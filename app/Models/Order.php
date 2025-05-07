@@ -9,4 +9,12 @@ class Order extends Model
 {
     /** @use HasFactory<\Database\Factories\OrderFactory> */
     use HasFactory;
+
+    /**
+     * Get the client associated with the order.
+     */
+    public function client()
+    {
+        return $this->belongsTo(Client::class, 'client_id');
+    }
 }

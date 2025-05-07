@@ -2,36 +2,36 @@
 
 namespace App\Repositories;
 
-use App\Interfaces\ClientRepositoryInterface;
-use App\Models\Client;
+use App\Interfaces\OrderRepositoryInterface;
+use App\Models\Order;
 
-class ClientRepository implements ClientRepositoryInterface
+class OrderRepository implements OrderRepositoryInterface
 {
-    public function getAllClients()
+    public function getAllOrders()
     {
-        return Client::all();
+        return Order::with('client')->get();
     }
 
-    public function getClientById($clientId)
+    public function getOrderById($orderId)
     {
-        return Client::find($clientId);
+        return Order::with('client')->find($orderId);
     }
 
-    public function createClient(array $data)
+    public function createOrder(array $data)
     {
-        return Client::create($data);
+        return Order::create($data);
     }
 
-    public function updateClient($clientId, array $data)
+    public function updateOrder($orderId, array $data)
     {
-        return Client::where('id', $clientId)->update($data);
+        return Order::where('id', $orderId)->update($data);
     }
 
-    public function deleteClient($clientId)
+    public function deleteOrder($orderId)
     {
-        $client = Client::find($clientId);
-        if ($client) {
-            $client->delete();
+        $order = Order::find($orderId);
+        if ($order) {
+            $order->delete();
             return true;
         }
         return false;
